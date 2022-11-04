@@ -8,6 +8,7 @@ const userInputTag = addMovieModal.querySelectorAll("input");
 const ulElement = sectionElement.nextElementSibling;
 const deleteModal = document.getElementById("delete-modal");
 const noButton = document.getElementById("no");
+const yesButton = document.getElementById("yes")
 
 
 // User movie list
@@ -103,20 +104,16 @@ function deleteMovie(obj, movieData) {
 
 
 const movieDeleteHandler = (object, movie) => {
-    let  yesButton = document.getElementById("yes")
-    yesButton.replaceWith(yesButton.cloneNode(true))
-    yesButton = document.getElementById("yes")
-   
     const yesEventHandler = () => {
         deleteMovie(object, movie)
     }
-    yesButton.removeEventListener("click", yesEventHandler)
-    yesButton.addEventListener("click", yesEventHandler)
-    noButton.addEventListener("click", () => {
-       yesButton.removeEventListener("click", yesEventHandler)
+    const noEventHandler = () => {
         deleteModal.classList.remove("visible")
         removeBackdropToggleEvent()
-    })
+    }
+    yesButton.onclick = yesEventHandler
+    noButton.onclick = noEventHandler
+
 }
 
 function addMovieToLiTag(obj) {
@@ -129,6 +126,7 @@ function addMovieToLiTag(obj) {
     <div class="movie-element__info">
     <h2>${obj["title"]}</h2>
     <p>${obj["rating"]}/5</p>
+    <p>Language</p>
     </div>
     `;
     liTag.addEventListener("click", function () {
